@@ -10,7 +10,6 @@
 </head>
 <body>
   <h2>ランダムな点を画像に描画</h2>
-  <input type="file" id="imgInput"><br><br>
   <button id="generateBtn">点を描画して画像を生成</button>
   <button id="downloadBtn">保存</button>
   <br>
@@ -24,10 +23,7 @@
     let img = new Image();
 
     // 画像読み込み
-    imgInput.addEventListener("change", e => {
-      const file = e.target.files[0];
-      img.src = URL.createObjectURL(file);
-    });
+    img.src = "image.png";
 
     img.onload = () => {
       canvas.width = img.width;
