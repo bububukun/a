@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ランダム点生成</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 30px; }
+    canvas { border: 1px solid #aaa; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>ランダムな点を画像に描画</h2>
+  <input type="file" id="imgInput"><br><br>
+  <button id="generateBtn">点を描画して画像を生成</button>
+  <button id="downloadBtn">保存</button>
+  <br>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const imgInput = document.getElementById("imgInput");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let img = new Image();
+
+    // 画像読み込み
+    imgInput.addEventListener("change", e => {
+      const file = e.target.files[0];
+      img.src = URL.createObjectURL(file);
+    });
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+    };
+
+    // 点の設定
+    const minPoints = 10;
+    const maxPoints = 50;
+    const dotRadius = 12;
+    const colors = ["red", "green", "blue", "yellow", "magenta"];
+
+    document.getElementById("generateBtn").onclick = () => {
+      ctx.drawImage(img, 0, 0); // 元画像描き戻し
+      const numPoints = Math.floor(Math.random() * (maxPoints - minPoints + 1)) + minPoints;
+
+      for (let i = 0; i < numPoints; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        ctx.beginPath();
+        ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+    };
+
+    // 保存（ダウンロード）
+    document.getElementById("downloadBtn").onclick = () => {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "output.png";
+      link.click();
+    };
+  </script>
+</body>
+</html>
