@@ -13,13 +13,7 @@
   <button id="generateBtn">点を描画して画像を生成</button>
   <button id="downloadBtn">保存</button>
   <br>
-  <!-- ▼▼▼ 追加（スライダー UI） ▼▼▼ -->
-  <label>Min Points: <span id="minVal">10</span></label><br>
-  <input type="range" id="minSlider" min="1" max="50" value="10"><br><br>
-
-  <label>Max Points: <span id="maxVal">50</span></label><br>
-  <input type="range" id="maxSlider" min="1" max="100" value="50"><br><br>
-<!-- ▲▲▲ 追加ここまで ▲▲▲ -->
+  
   <br>
   <canvas id="canvas"></canvas>
 
@@ -60,32 +54,7 @@
       }
     };
 
-    // ▼▼▼ 追加（スライダーの値を反映） ▼▼▼
-const minSlider = document.getElementById("minSlider");
-const maxSlider = document.getElementById("maxSlider");
-const minVal = document.getElementById("minVal");
-const maxVal = document.getElementById("maxVal");
 
-minSlider.oninput = () => {
-  minPoints = Number(minSlider.value);
-  minVal.textContent = minPoints;
-  if (minPoints > maxPoints) {
-    maxPoints = minPoints;
-    maxSlider.value = maxPoints;
-    maxVal.textContent = maxPoints;
-  }
-};
-
-maxSlider.oninput = () => {
-  maxPoints = Number(maxSlider.value);
-  maxVal.textContent = maxPoints;
-  if (maxPoints < minPoints) {
-    minPoints = maxPoints;
-    minSlider.value = minPoints;
-    minVal.textContent = minPoints;
-  }
-};
-// ▲▲▲ 追加ここまで ▲▲▲
 
     // 保存（ダウンロード）
     document.getElementById("downloadBtn").onclick = () => {
