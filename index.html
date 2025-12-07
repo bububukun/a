@@ -57,7 +57,8 @@
     document.getElementById("generateBtn").onclick = () => {
       ctx.drawImage(img, 0, 0); // 元画像描き戻し
       canvas.addEventListener("click", () => {
-        document.getElementById("generateBtn").click()
+        document.getElementById("generateBtn").click();
+      });
       const numPoints = Math.floor(Math.random() * (maxPoints - minPoints + 1)) + minPoints;
 
       for (let i = 0; i < numPoints; i++) {
