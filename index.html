@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ランダム点＋縦線生成</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 30px; }
+    canvas { border: 1px solid #aaa; margin-top: 20px; }
+    button { margin: 5px; padding: 8px 16px; font-size: 15px; }
+  </style>
+</head>
+<body>
+  <h2>ランダムな縦線と点を画像に描画</h2>
+  <button id="generateBtn">生成</button>
+  <button id="downloadBtn">保存</button>
+  <br>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // 🔹 固定画像を読み込み
+    let img = new Image();
+    img.src = "image.png"; // ← 使う元画像の名前
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+    };
+
+    // 🔹 点の設定
+    const minPoints = 10;
+    const maxPoints = 50;
+    const dotRadius = 12;
+    const colors = ["red", "pink", "white", "skyblue", "gray"]; // ← 5色
+
+    // 🔹 縦線の設定
+    const minLines = 3;
+    const maxLines = 8;
+    const lineWidth = 2;
+    const lineColor = "lightgray"; // ← 薄い線の色
+
+    function drawVerticalLines() {
+      const numLines = Math.floor(Math.random() * (maxLines - minLines + 1)) + minLines;
+      const gap = canvas.width / (numLines + 1);
+
+      ctx.lineWidth = lineWidth;
+      ctx.strokeStyle = lineColor;
+
+      for (let i = 1; i <= numLines; i++) {
+        const x = gap * i;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+    }
+
+    // 🔹 生成ボタン
+    document.getElementById("generateBtn").onclick = () => {
+      ctx.drawImage(img, 0, 0); // 元画像を描画
+      drawVerticalLines();     // ランダムな縦線
+
+      const numPoints = Math.floor}
